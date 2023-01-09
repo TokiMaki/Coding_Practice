@@ -14,12 +14,8 @@ int main() {
 		std::cin >> score[i];
 		if (max < score[i])
 			max = score[i];
-	}
-
-	for (int i = 0; i < N; ++i) {
-		score[i] = score[i] / max * 100;
 		sumScore += score[i];
 	}
 
-	std::cout << sumScore / N << std::endl;
+	std::cout << (sumScore / max * 100) / N << std::endl;
 }
