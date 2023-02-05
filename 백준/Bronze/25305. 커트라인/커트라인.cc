@@ -22,5 +22,5 @@ int main() {
 
 	sort(v.begin(), v.end(), greater<>());
 
-	cout << v[k - 1] << endl;
+	cout << v[k - 1] << "\n";
 }
