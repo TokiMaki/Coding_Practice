@@ -5,12 +5,6 @@
 using namespace std;
 
 int main() {
-    class Info {
-    public:
-        int x;
-        int y;
-        int order = 1;
-    };
     // 출력 최적화
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
