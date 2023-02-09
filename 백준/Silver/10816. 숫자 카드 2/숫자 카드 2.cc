@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <map>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -11,25 +11,22 @@ int main() {
     cin.tie(NULL);
 
     int N, M;
-    map<int, int> Nm;
+    vector<int> Nv;
 
     cin >> N;
     for (int i = 0; i < N; ++i) {
         int tmp;
         cin >> tmp;
-        if (Nm.find(tmp) != Nm.end())
-            Nm[tmp] += 1;
-        else
-            Nm[tmp] = 1;
+        Nv.push_back(tmp);
     }
+
+    sort(Nv.begin(), Nv.end());
 
     cin >> M;
     for (int i = 0; i < M; ++i) {
         int tmp;
         cin >> tmp;
-        if (Nm.find(tmp) != Nm.end())
-            cout << Nm[tmp] << " ";
-        else
-            cout << "0" << " ";
+        auto result = upper_bound(Nv.begin(), Nv.end(), tmp) - lower_bound(Nv.begin(), Nv.end(), tmp);
+        cout << result << " ";
     }
 }
