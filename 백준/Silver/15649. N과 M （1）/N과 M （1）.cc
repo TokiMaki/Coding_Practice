@@ -4,8 +4,6 @@
 
 using namespace std;
 
-int result = 0;
-
 bool isduplication(int* num, int x) {
 	set<int> s;
 	for (int i = 0; i < x + 1; ++i) {
