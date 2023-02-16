@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <set>
 #include <algorithm>
 
 using namespace std;
@@ -9,9 +8,9 @@ void d(int N, int M, int index, int x) {
 	static bool b[8] = { false, };
 	static vector<int> v;
 	if (x >= M) {
-			for (int i : v)
-				cout << i + 1 << " ";
-			cout << "\n";
+		for (int i : v)
+			cout << i + 1 << " ";
+		cout << "\n";
 		return;
 	}
 	for (int i = index; i < N; ++i) {
