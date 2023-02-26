@@ -31,10 +31,7 @@ int main() {
 		pair<int, int> yminmax = minmax(x2, y2);
 		int result = 0;
 		for (int j = xminmax.first; j <= xminmax.second; ++j) {
-			if (yminmax.first - 1 >= 0)
 				result += (table[j][yminmax.second] - table[j][yminmax.first - 1]);
-			else
-				result += table[j][yminmax.second];
 		}
 		cout << result << "\n";
 	}
