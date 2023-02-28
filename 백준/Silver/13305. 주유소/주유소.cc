@@ -30,15 +30,16 @@ int main() {
 	
 	for (int i = 0; i < N - 1; ++i) {
 		if (info[i].second <= a->second) {
+			long long dis = 0;
 			for (int j = i; j < N - 1; ++j) {
-				long long distance = info[j].first;
-				answer += distance * info[i].second;
+				dis += info[j].first;
 			}
+			answer += dis * info[i].second;
 			break;
 		}
 		else {
-			long long distance = info[i].first;
-			answer += distance * info[i].second;
+			long long dis = info[i].first;
+			answer += dis * info[i].second;
 		}
 	}
 
