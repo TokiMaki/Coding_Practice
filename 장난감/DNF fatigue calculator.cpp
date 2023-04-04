@@ -44,6 +44,7 @@ int main() {
 	cout << "│나사우 삼림         │ 8  │ 9  │" << endl;
 	cout << "│이터널 플레임 연구소│ 8  │ 11 │" << endl;
 	while (true) {
+		s.clear();
 		cout << "남은 피로도 : ";
 		cin >> leftfatigues;
 
@@ -53,11 +54,25 @@ int main() {
 		Dungeonfatigues.push_back(9);
 		Dungeonfatigues.push_back(12);
 
+		vector<int> Count(16);
 		backtracking(0);
-		for (vector<int> v : s) {
-			for (int i : v)
-				cout << i << " ";
-			cout << endl;
+		if (s.size() <= 0)
+			cout << "경우의 수 없음" << endl;
+		else {
+			int num = 0;
+			for (vector<int> v : s) {
+				num++;
+				fill(Count.begin(), Count.end(), 0);
+				cout << num << "번 │ ";
+				for (int i : v) {
+					Count[i]++;
+				}
+				for (int i = 1; i <= 15; ++i) {
+					if (Count[i] > 0)
+						cout << i << " : " << Count[i] << "회" << " │ ";
+				}
+				cout << endl;
+			}
 		}
 	}
 }
