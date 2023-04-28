@@ -1,26 +1,25 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
 
 using namespace std;
 
-int main() {
+int main()
+{
 	int n, k;
 
 	cin >> n >> k;
-
-	vector<int> coins(n);
 	vector<int> dp(k + 1);
-
-	for (int i = 0; i < n; ++i) {
-		cin >> coins[i];
-	}
+	
 	dp[0] = 1;
-	for (int j = 0; j < n; ++j) {
-		for (int i = coins[j]; i <= k; ++i) {
-				dp[i] = dp[i] + dp[i - coins[j]];
+	for(int i = 0; i < n; ++i)
+	{
+		int coin;
+		cin >> coin;
+		for(int j = coin; j <= k; ++j)
+		{
+			dp[j] += dp[j - coin];
 		}
 	}
 
-	cout << dp[k] << endl;
+	cout << dp[k];
 }
