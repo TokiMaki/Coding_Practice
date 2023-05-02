@@ -7,7 +7,7 @@ using namespace std;
 int M, N;
 int box[1000][1000] = {0, };
 int answer = -1;
-queue<pair<int, pair<int, int>>> q;
+queue<pair<int, int>> q;
 int dir_x[4] = { 1, 0, -1, 0 };
 int dir_y[4] = { 0, 1, 0, -1 };
 
@@ -18,27 +18,24 @@ void bfs()
 		for (int j = 0; j < M; ++j)
 		{
 			if (box[i][j] == 1)
-				q.push({ 1, { j, i } });
+				q.push({ j, i });
 		}
 	}
 	while(!q.empty())
 	{
-		int cnt = q.front().first;
-		int curr_x = q.front().second.first;
-		int curr_y = q.front().second.second;
+		int curr_x = q.front().first;
+		int curr_y = q.front().second;
 		q.pop();
 		for(int i = 0; i < 4; ++i)
 		{
-			int next_cnt = cnt + 1;
 			int next_x = curr_x + dir_x[i];
 			int next_y = curr_y + dir_y[i];
 			if (next_x < 0 || next_x >= M || next_y < 0 || next_y >= N)
 				continue;
-			if (box[next_y][next_x] != -1 && box[next_y][next_x] != 1
-				&& (box[next_y][next_x] > next_cnt || box[next_y][next_x] == 0))
+			if (box[next_y][next_x] == 0)
 			{
-				box[next_y][next_x] = next_cnt;
-				q.push({ next_cnt, { next_x, next_y } });
+				box[next_y][next_x] = box[curr_y][curr_x] + 1;
+				q.push({next_x, next_y});
 			}
 		}
 	}
