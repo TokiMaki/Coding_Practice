@@ -10,7 +10,7 @@ using namespace std;
 bool visited[101];
 vector<int> grahp[101];
 
-int dfs(int start) {
+int bfs(int start) {
     queue<int> q;
     q.push(start);
     int returnValue = 1;
@@ -46,8 +46,8 @@ int solution(int n, vector<vector<int>> wires) {
         grahp[wires[i][1]].erase(remove(grahp[wires[i][1]].begin(), 
                                         grahp[wires[i][1]].end(), wires[i][0]), grahp[wires[i][1]].end());
         int connectnum[2] = { 0, 0 };
-        connectnum[0] = dfs(wires[i][0]);
-        connectnum[1] = dfs(wires[i][1]);
+        connectnum[0] = bfs(wires[i][0]);
+        connectnum[1] = bfs(wires[i][1]);
         if (connectnum[0] != -1 && connectnum[1] != -1)
             answer = min(answer, abs(connectnum[0] - connectnum[1]));
         grahp[wires[i][0]].push_back(wires[i][1]);
