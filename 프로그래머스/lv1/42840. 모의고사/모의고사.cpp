@@ -22,6 +22,5 @@ vector<int> solution(vector<int> answers) {
         if (answermax == answernum[i])
             answer.push_back(i + 1);
     }
-        
     return answer;
 }
