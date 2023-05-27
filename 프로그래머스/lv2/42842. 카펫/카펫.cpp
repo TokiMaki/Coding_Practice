@@ -19,5 +19,6 @@ vector<int> solution(int brown, int yellow) {
             break;
         }
     }
+    
     return answer;
 }
