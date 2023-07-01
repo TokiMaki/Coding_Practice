@@ -37,7 +37,7 @@ int main() {
 	cout << "│던전명              │ 직 │ 풀 │" << endl;
 	cout << "│백색의 땅           │ 7  │ 15 │" << endl;
 	cout << "│베리콜리스          │ 6  │ 6  │" << endl;
-	cout << "│케니언 힐           │ 6  │ 9  │" << endl;
+	cout << "│케니언 힐           │ 6  │ 12  │" << endl;
 	cout << "│퀸 팔트             │ 6  │ 12 │" << endl;
 	cout << "│왕의 요람           │ 7  │ 9  │" << endl;
 	cout << "│헤블론의 예언소     │ 7  │ 11 │" << endl;
@@ -47,11 +47,10 @@ int main() {
 		s.clear();
 		cout << "남은 피로도 : ";
 		cin >> leftfatigues;
-
+		
 		Dungeonfatigues.push_back(6);
 		Dungeonfatigues.push_back(7);
 		Dungeonfatigues.push_back(8);
-		Dungeonfatigues.push_back(9);
 		Dungeonfatigues.push_back(12);
 
 		vector<int> Count(16);
