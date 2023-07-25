@@ -6,76 +6,52 @@
 using namespace std;
 
 vector<int> solution(vector<string> operations) {
-    vector<int> answer;
-    priority_queue<int, vector<int>, greater<int>> min_pq;
-    priority_queue<int, vector<int>> max_pq;
-
-    for (string s : operations) {
-        stringstream stream;
-        stream.str(s);
-        char type;
+    vector<int> answer(2);
+    priority_queue <int, vector<int>> maxPq;
+    priority_queue <int, vector<int>, greater<int>> minPq;
+    
+    for(string operation : operations) {
+        stringstream ss;
+        ss.str(operation);
+        string commend;
+        ss >> commend;
         int num;
-        stream >> type;
-        if (type == 'I') {
-            stream >> num;
-            min_pq.push(num);
-            max_pq.push(num);
+        ss >> num;
+        switch(commend[0]) {
+            case 'I' :
+                maxPq.push(num);
+                minPq.push(num);
+                break;
+            case 'D' :
+                if (num == 1) {
+                    if (!maxPq.empty())
+                        maxPq.pop();
+                }
+                if (num == -1) {
+                    if (!minPq.empty())
+                        minPq.pop();
+                }
+                break;
         }
-        if (type == 'D') {
-            stream >> num;
-            if (num == 1) {
-                if (!max_pq.empty()) {
-                    max_pq.pop();
-                }
-            }
-            else if (num == -1) {
-                if (!min_pq.empty()) {
-                    min_pq.pop();
-                }
-            }
+        if (maxPq.empty()) {
+            while(!minPq.empty())
+                minPq.pop();
         }
-
-        while (!max_pq.empty()) {
-            if (min_pq.empty()) {
-                max_pq.pop();
-                continue;
-            }
-            if (!min_pq.empty())
-            {
-                if (min_pq.top() > max_pq.top())
-                {
-                    max_pq.pop();
-                }
-                else
-                    break;
-            }
+        else if (minPq.empty()) {
+            while(!maxPq.empty())
+                maxPq.pop();
         }
-
-        while (!min_pq.empty()) {
-            if (max_pq.empty()) {
-                min_pq.pop();
-                continue;
-            }
-            if (!max_pq.empty())
-            {
-                if (min_pq.top() > max_pq.top())
-                {
-                    min_pq.pop();
-                }
-                else
-                    break;
-            }
+        else if (minPq.top() > maxPq.top()) {
+            while(!minPq.empty())
+                minPq.pop();
+            while(!maxPq.empty())
+                maxPq.pop();
         }
     }
-
-    if (!max_pq.empty())
-        answer.push_back(max_pq.top());
-    else
-        answer.push_back(0);
-    if (!min_pq.empty())
-        answer.push_back(min_pq.top());
-    else
-        answer.push_back(0);
+    if (!maxPq.empty())
+        answer[0] = maxPq.top();
+    if (!minPq.empty())
+        answer[1] = minPq.top();
 
     return answer;
 }
