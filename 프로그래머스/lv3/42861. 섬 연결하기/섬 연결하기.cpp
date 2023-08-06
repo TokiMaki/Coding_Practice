@@ -4,37 +4,37 @@
 
 using namespace std;
 
-int parant[100];
+int parent[100];
 
-int findparant(int x) {
-    if (parant[x] == x)
+int findparent(int x) {
+    if (parent[x] == x)
         return x;
-    return parant[x] = findparant(parant[x]);
+    return parent[x] = findparent(parent[x]);
 }
 
-void unionparant(int a, int b) {
-    a = findparant(a);
-    b = findparant(b);
-    
+void unionparent(int a, int b){
+    a = findparent(a);
+    b = findparent(b);
     if (a < b)
-        parant[b] = a;
+        parent[b] = a;
     else
-        parant[a] = b;
+        parent[a] = b;
 }
 
 int solution(int n, vector<vector<int>> costs) {
     int answer = 0;
     
-    for(int i = 0; i < 100; ++i)
-        parant[i] = i;
+    for(int i = 0; i < 100; ++i) {
+        parent[i] = i;
+    }
     
-    sort(costs.begin(), costs.end(), [](vector<int> a, vector<int> b){
+    sort(costs.begin(), costs.end(), [](vector<int> a, vector<int> b) {
         return a[2] < b[2];
     });
     
     for(vector<int> cost : costs) {
-        if (findparant(cost[0]) != findparant(cost[1])) {
-            unionparant(cost[0], cost[1]);
+        if (findparent(cost[0]) != findparent(cost[1])) {
+            unionparent(cost[0], cost[1]);
             answer += cost[2];
         }
     }
