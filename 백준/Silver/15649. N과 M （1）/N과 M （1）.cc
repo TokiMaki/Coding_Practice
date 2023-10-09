@@ -1,43 +1,42 @@
 #include <iostream>
-#include <set>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
 
-bool isduplication(int* num, int x) {
-	set<int> s;
-	for (int i = 0; i < x + 1; ++i) {
-		s.insert(num[i]);
-	}
-	return (s.size() == x + 1);
-}
-
-void dfs(int N, int M, int x) {
-	static int num[8];
-	if (x == M) {
-		for (int i = 0; i < M; ++i) {
+int N, M;
+int num[8];
+int visited[9];
+void dfs(int cnt)
+{
+	if (cnt >= M) {
+		for (int i = 0; i < M; ++i)
+		{
 			cout << num[i] << " ";
 		}
 		cout << "\n";
 		return;
 	}
-	else {
-		for (int i = 1; i <= N; ++i) {
-			num[x] = i;
-			if (isduplication(num, x)) {
-				dfs(N, M, x + 1);
-			}
+
+	for(int i = 1; i <= N; ++i)
+	{
+		if (visited[i] == false)
+		{
+			visited[i] = true;
+			num[cnt] = i;
+			dfs(cnt + 1);
+			visited[i] = false;
 		}
 	}
 }
 
-int main() {
-	// 출력 최적화
+int main()
+{
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-
-	int N, M;
+	
 	cin >> N >> M;
 
-	dfs(N, M, 0);
+	fill_n(visited, 8, false);
+	dfs(0);
 }
