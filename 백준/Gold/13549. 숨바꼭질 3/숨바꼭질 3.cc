@@ -1,63 +1,58 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <deque>
 #include <climits>
 
 using namespace std;
 
-bool visited[100001];
+int answer = 0;
 int N, K;
+int shortTime = INT_MAX;
 
+int visited[100001];
 
-int dijkstra(int start)
+int bfs()
 {
-	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-	pq.push({ 0, start });
-	visited[start] = true;
-	while(!pq.empty())
+	deque<pair<int, int>> p;
+	
+	p.emplace_back(0, N);
+	visited[N] = 0;
+	while(!p.empty())
 	{
-		int curr_time = pq.top().first;
-		int curr_start = pq.top().second;
-		pq.pop();
+		int cnt = p.front().first;
+		int now = p.front().second;
+		p.pop_front();
 
-		if (curr_start == K)
-			return curr_time;
-
-		int next_start = curr_start * 2;
-		if (next_start <= 100000) {
-			if (visited[next_start] == false)
-			{
-				visited[next_start] = true;
-				pq.push({ curr_time, next_start });
-			}
+		if (now == K)
+		{
+			return cnt;
 		}
 
-		next_start = curr_start + 1;
-		if (next_start <= 100000) {
-			if (visited[next_start] == false)
-			{
-				visited[next_start] = true;
-				pq.push({ curr_time + 1, next_start });
+		if (now * 2 <= 100000) {
+			if (visited[now * 2] > cnt) {
+				visited[now * 2] = cnt;
+				p.emplace_front(cnt, now * 2);
 			}
 		}
-
-		next_start = curr_start - 1;
-		if (next_start >= 0) {
-			if (visited[next_start] == false)
-			{
-				visited[next_start] = true;
-				pq.push({ curr_time + 1, next_start });
+		if (now - 1 >= 0) {
+			if (visited[now - 1] > cnt + 1) {
+				visited[now - 1] = cnt + 1;
+				p.emplace_back(cnt + 1, now - 1);
 			}
 		}
-
+		if (now + 1 <= 100000) {
+			if (visited[now + 1] > cnt + 1) {
+				visited[now + 1] = cnt + 1;
+				p.emplace_back(cnt + 1, now + 1);
+			}
+		}
 	}
 }
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-
 	cin >> N >> K;
-	cout << dijkstra(N);
+	fill_n(visited, 100001, INT_MAX);
+	answer = bfs();
+	cout << answer;
 }
