@@ -1,40 +1,40 @@
 #include <iostream>
-#include <cmath>
-#include <vector>
+#include <map>
+#include <algorithm>
 
 using namespace std;
 
-int chess[15];
+int chess[16];
+int N;
+int answer;
 
-bool promising(int x, int* chessborad) {
-	for (int i = 0; i < x; ++i) {
-		if (chessborad[x] == chessborad[i] || (x - i) == abs(chessborad[x] - chessborad[i]))
+bool check(int x)
+{
+	for(int i = 0; i < x; ++i)
+	{
+		if (chess[i] == chess[x] || x - i == abs(chess[x] - chess[i]))
 			return false;
 	}
 	return true;
 }
 
-void nQueen(int* count, int n, int x) {
-	if (x >= n) {
-		*count += 1;
+void nQueen(int x)
+{
+	if (x >= N) {
+		answer += 1;
 		return;
 	}
-	for (int i = 0; i < n; ++i) {
+	for(int i = 0; i < N; ++i)
+	{
 		chess[x] = i;
-		if (true == promising(x, chess)) {
-			nQueen(count, n, x + 1);
-		}
+		if (check(x) != false)
+			nQueen(x + 1);
 	}
 }
 
 int main() {
-	// 출력 최적화
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-
-	int N;
-	int count = 0;
 	cin >> N;
-	nQueen(&count, N, 0);
-	cout << count;
+	answer = 0;
+	nQueen(0);
+	cout << answer;
 }
